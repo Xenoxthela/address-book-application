@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: address-book-postgres
+spec:
+  selector: # Gibt an, welche Pods zu diesem Deployment gehören
+    matchLabels:
+      app: address-book-postgres # Label, dass für die Auswahl der Pods verwendet wird.
+  template:
+    metadata:
+      labels:
+        app: address-book-postgres # Label, die den zu erstellenden Pods zugewiesen werden
+    spec:
+      containers:
+      - name: address-book-postgres # Name des Containers im Pod
+        image: postgres:16
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_DB
+          value: "address-book-db"
+        - name: POSTGRES_PASSWORD
+          value: "postgres"
+        ports:
+        - containerPort: 5432
